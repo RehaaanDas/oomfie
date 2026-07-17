@@ -1,4 +1,5 @@
 import discord
+import os
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -37,4 +38,4 @@ async def on_message(message):
 
 async def on_member_join(member):
 	id = member.id	
-client.run('MTUyNjkzMjIxMDE1Njk2NjAyOA.GzdR2K.2yRhtoGoDckB62pHmc80905GAygKuUoluht5WY')
+client.run(os.getenv("OOMFIE"))
