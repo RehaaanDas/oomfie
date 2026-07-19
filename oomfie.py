@@ -1,5 +1,7 @@
 import discord
 import os
+import re
+import random
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -8,6 +10,7 @@ intents.members = True
 client = discord.Client(intents=intents)
 
 cat = 0
+hello = ['haiii', 'hi hello nya~', 'mraow', 'hihihihiii hewoo', 'harro', 'ha-iiiiii', ':hai:', ':hai::iiiii::iiiii:', 'suppers']
 
 @client.event
 async def on_ready():
@@ -33,6 +36,10 @@ async def on_message(message):
 			await message.channel.send(":3")
 	else:
 		cat = 0
+	if message.reference and message.reference.cached_message:
+		ogmsg = message.reference.cached_message
+		if ogmsg == client.user and re.search(r'h[aei]+(l+o+)*', ogmsg.content):
+			await message.reply(random.choice(hello))
 
 	await message.author.add_roles(terrarian)	
 
