@@ -39,6 +39,7 @@ async def on_message(message):
 	if message.reference and message.reference.cached_message:
 		ogmsg = message.reference.cached_message
 		if ogmsg.author == client.user and re.search(r'h+[aei]+(l+o+)*', ogmsg.content):
+			print("console log")
 			await message.reply(random.choice(hello))
 
 	await message.author.add_roles(terrarian)	
