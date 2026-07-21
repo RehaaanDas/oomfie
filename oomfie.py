@@ -31,10 +31,10 @@ async def on_message(message):
 		ogmsg = message.reference.cached_message
 		if (ogmsg.author == client.user) and re.search(r'\b((h+[aei]+(l+o+y+)*)|(w+s+p+)|(s+u+p+)|(y+o+))\b', message.content):
  			await message.reply(random.choice(hello))
-		meow = r'\b((m+[yr]*[ea]+o*w+)|(m+r+p+)|(m+r+[iu]+u+)|n+y+a+)\b'
+		meow = r'\b((m+[yr]*[ea]+o*w+)|(m+r+p+)|(m+r+[iue]+u+)|n+y+a+)\b'
 		if (ogmsg.author == client.user) and re.search(meow, message.content):
 			await message.reply(random.choice(mraow))	
-		if (ogmsg.author == client.user) and re.fullmatch("hits you with my .+", message.content):
+		if (ogmsg.author == client.user) and re.fullmatch("hits you with (my|an?)? .+", message.content):
 			await message.reply(random.choices(['*dies*', '*cums*'], weights=[0.9, 0.1], k=1)[0])
 	await message.author.add_roles(terrarian)	
 async def on_member_join(member):
