@@ -3,7 +3,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 client = discord.Client(intents=intents); cat = 0
-hello = ['haiii', 'hi hello nya~', 'mraow', 'hihihihiii hewoo', 'harro', 'ha-iiiiii', ':hai:', ':hai::iiiii::iiiii:', 'suppers']
+hello = ['haiii', 'hi hello nya~', 'mraow', 'hihihihiii hewoo', 'harro', 'ha-iiiiii', ':hai:', ':hai::iiiii::iiiii:', 'suppers', 'hewoooooooooooooo', 'heyo', '>w< hihi']
+mraow = ['mraowwww', 'meeeoww', 'nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumiumiumewowww', 'mrowwwww', 'mryaowww', 'mrpppp', '>w<', '^._.^', 'mlem']
 @client.event
 async def on_ready():
 	print(f'hi oomfie is now up and running')
@@ -29,7 +30,12 @@ async def on_message(message):
 	if message.reference and message.reference.cached_message:
 		ogmsg = message.reference.cached_message
 		if (ogmsg.author == client.user) and re.search(r'\b((h+[aei]+(l+o+y+)*)|(w+s+p+)|(s+u+p+)|(y+o+))\b', message.content):
- 			print("console log"); await message.reply(random.choice(hello))
+ 			await message.reply(random.choice(hello))
+		meow = r'\b((m+[yr]*[ea]+o*w+)|(m+r+p+)|(m+r+[iu]+u+)|n+y+a+)\b'
+		if (ogmsg.author == client.user) and re.search(meow, message.content):
+			await message.reply(random.choice(mraow))	
+		if (ogmsg.author == client.user) and re.fullmatch("hits you with my .+", message.content):
+			await message.reply(random.choices(['*dies*', '*cums*'], weights=[0.9, 0.1], k=1)[0])
 	await message.author.add_roles(terrarian)	
 async def on_member_join(member):
 	id = member.id	
