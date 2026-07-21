@@ -34,11 +34,11 @@ async def on_message(message):
 		meow = r'\b((m+[yr]*[ea]+o*w+)|(m+r+p+)|(m+r+[iue]+u+)|n+y+a+)\b'
 		if (ogmsg.author == client.user) and re.search(meow, message.content):
 			await message.reply(random.choice(mraow))	
-		if (ogmsg.author == client.user) and (re.fullmatch("hits you with (my|an?)? .+", message.content) or re.fullmatch(".+s you.*", message.content)):
+		if (ogmsg.author == client.user) and (re.fullmatch("hits you with (my|an?)? .+", message.content) or re.fullmatch(".+s you (?!a good girl)", message.content)):
 			await message.reply(random.choices(['*dies*', '*cums*'], weights=[0.9, 0.1], k=1)[0])
 		if (ogmsg.author == client.user) and message.content == "marco":
 			await message.reply("polo")
-		if (ogmsg.author == client.user) and re.fullmatch("good .+", message.content):
+		if (ogmsg.author == client.user) and re.fullmatch("(calls you a )?good .+", message.content):
 			await message.reply(random.choice(['nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumiumiumewowww, 'cums', 'ejects', 'ok bro', 'goons on you', 'cums on you']))
 		if (ogmsg.author == client.user) and re.fullmatch("(cums [io]n you|goons [io]n you)", message.content):
 			await message.reply(random.choices(['swallows', 'yummers', ':drooling_face:', 'licks', 'takes it in']))
