@@ -36,6 +36,8 @@ async def on_message(message):
 			await message.reply(random.choice(mraow))	
 		if (ogmsg.author == client.user) and re.fullmatch("hits you with (my|an?)? .+", message.content):
 			await message.reply(random.choices(['*dies*', '*cums*'], weights=[0.9, 0.1], k=1)[0])
+		if (ogmsg.author == client.user) and message.content == "marco":
+			await message.reply("polo")
 	await message.author.add_roles(terrarian)	
 async def on_member_join(member):
 	id = member.id	
