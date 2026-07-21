@@ -38,8 +38,8 @@ async def on_message(message):
 			await message.reply(random.choices(['*dies*', '*cums*'], weights=[0.9, 0.1], k=1)[0])
 		if (ogmsg.author == client.user) and message.content == "marco":
 			await message.reply("polo")
-		if (ogmsg.author == client.user) and re.fullmatch("(calls you a )?good .+", message.content):
-			await message.reply(random.choices(mraow+['cums', 'ejects', 'ok bro', 'goons on you', 'cums on you']))
+		if (ogmsg.author == client.user) and re.fullmatch("good .+", message.content):
+			await message.reply(random.choice(['nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumiumiumewowww, 'cums', 'ejects', 'ok bro', 'goons on you', 'cums on you']))
 		if (ogmsg.author == client.user) and re.fullmatch("(cums [io]n you|goons [io]n you)", message.content):
 			await message.reply(random.choices(['swallows', 'yummers', ':drooling_face:', 'licks', 'takes it in']))
 	
