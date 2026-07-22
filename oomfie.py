@@ -48,8 +48,8 @@ async def on_message(message):
 			await message.reply(random.choice(['swallows', 'yummers', ':drooling_face:', 'licks']))
 
 	for r in regex:
-		if r.splitlines()[0] == "[regex]":
-			r = "".join(r.splitlines()[1:])
+		if r.content.splitlines()[0] == "[regex]":
+			r = "".join(r.content.splitlines()[1:])
 			r = json.loads(r)
 			if (r.reply and message.reference and message.reference.cached_message and (message.reference.cached_message.author == client.user))	or not r.reply:
 				if re.fullmatch(r.regex, message.content):
