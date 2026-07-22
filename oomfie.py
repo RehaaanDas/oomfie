@@ -1,4 +1,4 @@
-import discord; import os; import re; import random
+import discord; import os; import re; import random; import json
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
@@ -14,6 +14,8 @@ async def on_message(message):
 	guild = message.author.guild
 	terrarian = guild.get_role(1526562302340497469)
 	gooner = guild.get_role(1527189062035705937)
+	regexchan = client.fetch_channel(1529411688204472384)
+	regex = [message async for message in regexchan.history()]
 	if message.author == client.user:
 		return
 	if message.content == "test":
@@ -39,9 +41,17 @@ async def on_message(message):
 		if (ogmsg.author == client.user) and message.content == "marco":
 			await message.reply("polo")
 		if (ogmsg.author == client.user) and re.fullmatch("(calls you a )?good .+", message.content):
-			await message.reply(random.choice(['nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumiumiumewowww', 'cums', 'ejects', 'ok bro', 'goons on you', 'cums on you']))
-		if (ogmsg.author == client.user) and re.fullmatch("(cums [io]n you|goons [io]n you)", message.content):
-			await message.reply(random.choices(['swallows', 'yummers', ':drooling_face:', 'licks', 'takes it in']))
+			await message.reply(random.choice(['nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumiumiumewowww', '*cums*', '*ejects*', 'ok bro', '*goons on you*', '*cums on you*']))
+		if (ogmsg.author == client.user) and re.fullmatch("(cums ([io]n)? you|goons ([io]n)? you)", message.content):
+			await message.reply(random.choice(['swallows', 'yummers', ':drooling_face:', 'licks']))
+
+	for r in regex:
+		if r.splitlines()[0] == "[regex]":
+			r = "".join(r.splitlines()[1:])
+			r = json.loads(r)
+			if (r.reply and message.reference and message.reference.cached_message and (message.reference.cached_message.author == client.user))	or not r.reply:
+				if re.fullmatch(r.regex, message.content):
+					await message.reply(random.choices(r.replies, weights=chance, k=1)[0])	
 	
 	await message.author.add_roles(terrarian)	
 async def on_member_join(member):
