@@ -51,9 +51,9 @@ async def on_message(message):
 		if r.content.splitlines()[0] == "[regex]":
 			r = "".join(r.content.splitlines()[1:])
 			r = json.loads(r)
-			if (r.reply and message.reference and message.reference.cached_message and (message.reference.cached_message.author == client.user))	or not r.reply:
-				if re.fullmatch(r.regex, message.content):
-					await message.reply(random.choices(r.replies, weights=chance, k=1)[0])	
+			if (r["reply"] and message.reference and message.reference.cached_message and (message.reference.cached_message.author == client.user))	or not r["reply"]:
+				if re.fullmatch(r["regex"], message.content):
+					await message.reply(random.choices(r["replies"], weights=r["chance"], k=1)[0])	
 	
 	await message.author.add_roles(terrarian)	
 async def on_member_join(member):
