@@ -14,8 +14,10 @@ async def on_message(message):
 	guild = message.author.guild
 	terrarian = guild.get_role(1526562302340497469)
 	gooner = guild.get_role(1527189062035705937)
+
 	regexchan = client.fetch_channel(1529411688204472384)
 	regex = [message async for message in regexchan.history()]
+
 	if message.author == client.user:
 		return
 	if message.content == "test":
