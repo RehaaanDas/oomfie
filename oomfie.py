@@ -1,4 +1,4 @@
-import discord; import os; import re; import random; import json
+import discord; import os; import re; import random; import json; import io
 intents = discord.Intents.default()
 intents.message_content = True
 intents.messages = True
@@ -13,12 +13,12 @@ async def on_ready():
 async def on_message_edit(before: discord.Message, after: discord.Message):
 	logs = await client.fetch_channel(1531936024119345213)
 	attachments = [discord.File(io.BytesIO(await a.read()).seek(0), filename=a.filename) for a in before.attachments]
-	await logs.send(f"{before.channel.name}/{before.author.display_name}: `{before.content}` -> `{after.content}`", files=attachments)
+	await logs.send(f"{before.channel.name}/{before.author.display_name} edited: `{before.content}` -> `{after.content}`", files=attachments)
 @client.event
 async def on_message_delete(message: discord.Message):
 	logs = await client.fetch_channel(1531936024119345213)
 	attachments = [discord.File(io.BytesIO(await a.read()).seek(0), filename=a.filename) for a in message.attachments]
-	await logs.send(f"{message.channel.name}/{message.author.display_name}: `{message.content}`", files=attachments)
+	await logs.send(f"{message.channel.name}/{message.author.display_name} deleted: `{message.content}`", files=attachments)
 
 @client.event
 async def on_message(message):
