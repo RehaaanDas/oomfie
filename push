@@ -1,0 +1,18 @@
+import discord
+import os
+import subprocess
+import random
+
+intents = discord.Intents.default()
+client = discord.Client(intents=intents)
+
+@client.event
+async def on_ready():
+	result = subprocess.run(['git', 'push', 'origin', 'main'])
+	print(result.stdout)
+	tchat = await client.fetch_channel(1526558663215677585)
+	await tchat.send(random.choice(['*moans*', 'mpghh~', '[insert moaning]', 'auhhhhhh~', '*cums*']))
+	await client.close()
+	
+client.run(os.getenv("OOMFIE"))
+

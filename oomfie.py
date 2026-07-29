@@ -1,0 +1,74 @@
+import discord; import os; import re; import random; import json
+intents = discord.Intents.default()
+intents.message_content = True
+intents.messages = True
+intents.members = True
+client = discord.Client(intents=intents); cat = 0
+hello = ['haiii', 'hi hello nya~', 'mraow', 'hihihihiii hewoo', 'harro', 'ha-iiiiii', ':hai:', ':hai::iiiii::iiiii:', 'suppers', 'hewoooooooooooooo', 'heyo', '>w< hihi']
+mraow = ['mraowwww', 'meeeoww', 'nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumiumiumewowww', 'mrowwwww', 'mryaowww', 'mrpppp', '>w<', '^._.^', 'mlem']
+@client.event
+async def on_ready():
+	print(f'hi oomfie is now up and running')
+@client.event
+async def on_message_edit(before: discord.Message, after: discord.Message):
+	logs = await client.fetch_channel(1531936024119345213)
+	attachments = [discord.File(io.BytesIO(await a.read()).seek(0), filename=a.filename) for a in before.attachments]
+	await logs.send(f"{before.channel.name}/{before.author.display_name}: `{before.content}` -> `{after.content}`", files=attachments)
+@client.event
+async def on_message_delete(message: discord.Message):
+	logs = await client.fetch_channel(1531936024119345213)
+	attachments = [discord.File(io.BytesIO(await a.read()).seek(0), filename=a.filename) for a in message.attachments]
+	await logs.send(f"{message.channel.name}/{before.author.display_name}: `{message.content}`", files=attachments)
+
+@client.event
+async def on_message(message):
+	global cat
+	guild = message.author.guild
+	terrarian = guild.get_role(1526562302340497469)
+	gooner = guild.get_role(1527189062035705937)
+
+	regexchan = await client.fetch_channel(1529492728491278526)
+	regex = [message async for message in regexchan.history()]
+
+	if message.author == client.user:
+		return
+	if message.content == "test":
+		await message.channel.send("reply~")
+	if "[nsfw]" in message.content.lower():
+		await message.author.add_roles(gooner)	
+	if message.content == ":3":
+		cat += 1
+		if cat >= 3:
+			cat = 0
+			await message.channel.send(":3")
+	else:
+		cat = 0
+	if message.reference and message.reference.cached_message:
+		ogmsg = message.reference.cached_message
+		if (ogmsg.author == client.user) and re.search(r'\b((h+[aei]+(l+o+y+)*)|(w+s+p+)|(s+u+p+)|(y+o+))\b', message.content):
+ 			await message.reply(random.choice(hello))
+		meow = r'\b((m+[yr]*[ea]+o*w+)|(m+r+p+)|(m+r+[iue]+u+)|n+y+a+)\b'
+		if (ogmsg.author == client.user) and re.search(meow, message.content):
+			await message.reply(random.choice(mraow))	
+		if (ogmsg.author == client.user) and (re.fullmatch("hits you with (my|an?)? .+", message.content) or re.fullmatch("(?! a good .+$)^.+s you.*", message.content)):
+			await message.reply(random.choices(['*dies*', '*cums*'], weights=[0.9, 0.1], k=1)[0])
+		if (ogmsg.author == client.user) and message.content == "marco":
+			await message.reply("polo")
+		if (ogmsg.author == client.user) and re.fullmatch("(calls you a )?good .+", message.content):
+			await message.reply(random.choice(['nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumiumiumewowww', '*cums*', '*ejects*', 'ok bro', '*goons on you*', '*cums on you*']))
+		if (ogmsg.author == client.user) and re.fullmatch("(cums ([io]n)? you|goons ([io]n)? you)", message.content):
+			await message.reply(random.choice(['swallows', 'yummers', ':drooling_face:', 'licks']))
+
+	for r in regex:
+		if r.content.splitlines()[0] == "[regex]":
+			r = "".join(r.content.splitlines()[1:])
+			r = json.loads(r)
+			if (r["reply"] and message.reference and message.reference.cached_message and (message.reference.cached_message.author == client.user))	or not r["reply"]:
+				if re.fullmatch(r["regex"], message.content):
+					await message.reply(random.choices(r["replies"], weights=r["chance"], k=1)[0])	
+	
+	await message.author.add_roles(terrarian)	
+async def on_member_join(member):
+	id = member.id	
+client.run(os.getenv("OOMFIE"))
+
