@@ -12,7 +12,7 @@ async def on_ready():
 @client.event
 async def on_raw_reaction_remove(payload):
 	logs = await client.fetch_channel(1531936024119345213)
-	await logs.send(f"https://discord.com/channels/1526558661810327684/{payload.channel_id}\/{payload.member.display_name} removed react: {str(payload.emoji)}")
+	await logs.send(f"https://discord.com/channels/1526558661810327684/{payload.channel_id}\/{(await guild.fetch(payload.user_id)).display_name} removed react: {str(payload.emoji)}")
 @client.event
 async def on_raw_message_edit(before: discord.Message, after: discord.Message):
 	logs = await client.fetch_channel(1531936024119345213)
