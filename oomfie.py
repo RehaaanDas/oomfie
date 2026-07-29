@@ -12,7 +12,7 @@ async def on_ready():
 @client.event
 async def on_raw_reaction_remove(payload):
 	logs = await client.fetch_channel(1532030955177381978)
-	await logs.send(f"https://discord.com/channels/1526558661810327684/{payload.channel_id}\/{(await (await client.fetch_guild(payload.guild_id)).fetch_member(payload.user_id)).display_name} removed react from https://discord.com/channels/1526558661810327684/{payload.channel_id}/{payload.message_id}: {str(payload.emoji)}")
+	await logs.send(f"{(await (await client.fetch_guild(payload.guild_id)).fetch_member(payload.user_id)).display_name} removed react: {str(payload.emoji)}\n\nmessage: https://discord.com/channels/1526558661810327684/{payload.channel_id}/{payload.message_id}\nchannel: https://discord.com/channels/1526558661810327684/{payload.channel_id}")
 @client.event
 async def on_message_edit(before: discord.Message, after: discord.Message):
 	logs = await client.fetch_channel(1532030955177381978)
@@ -21,7 +21,7 @@ async def on_message_edit(before: discord.Message, after: discord.Message):
 		fp = io.BytesIO(await a.read())
 		fp.seek(0)
 		attachments.append(discord.File(fp, filename=a.filename))
-	await logs.send(f"https://discord.com/channels/1526558661810327684/{before.channel.id}\/{before.author.display_name} edited: `{before.content}` -> `{after.content}`", files=attachments)
+	await logs.send(f"{before.author.display_name} edited: `{before.content}` -> `{after.content}`\n\nchannel: https://discord.com/channels/1526558661810327684/{before.channel.id}", files=attachments)
 @client.event
 async def on_message_delete(message: discord.Message):
 	logs = await client.fetch_channel(1532030955177381978)
@@ -30,7 +30,7 @@ async def on_message_delete(message: discord.Message):
 		fp = io.BytesIO(await a.read())
 		fp.seek(0)
 		attachments.append(discord.File(fp, filename=a.filename))
-	await logs.send(f"https://discord.com/channels/1526558661810327684/{message.channel.id}\/{message.author.display_name} deleted: `{message.content}`", files=attachments)
+	await logs.send(f"{message.author.display_name} deleted: `{message.content}`\n\nchannel: https://discord.com/channels/1526558661810327684/{message.channel.id}", files=attachments)
 
 @client.event
 async def on_message(message):
