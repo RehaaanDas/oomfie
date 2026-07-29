@@ -10,23 +10,27 @@ mraow = ['mraowwww', 'meeeoww', 'nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumium
 async def on_ready():
 	print(f'hi oomfie is now up and running')
 @client.event
-async def on_message_edit(before: discord.Message, after: discord.Message):
+async def on_raw_reaction_remove(payload):
+	logs = await client.fetch_channel(1531936024119345213)
+	await logs.send(f"https://discord.com/channels/1526558661810327684/{payload.channel_id}\/{payload.member.display_name} removed react: {str(payload.emoji)}")
+@client.event
+async def on_raw_message_edit(before: discord.Message, after: discord.Message):
 	logs = await client.fetch_channel(1531936024119345213)
 	attachments = []
 	for a in before.attachments:
 		fp = io.BytesIO(await a.read())
 		fp.seek(0)
 		attachments.append(discord.File(fp, filename=a.filename))
-	await logs.send(f"{before.channel.name}/{before.author.display_name} edited: `{before.content}` -> `{after.content}`", files=attachments)
+	await logs.send(f"https://discord.com/channels/1526558661810327684/{before.channel.id}\/{before.author.display_name} edited: `{before.content}` -> `{after.content}`", files=attachments)
 @client.event
-async def on_message_delete(message: discord.Message):
+async def on_raw_message_delete(message: discord.Message):
 	logs = await client.fetch_channel(1531936024119345213)
 	attachments = []
 	for a in message.attachments:
 		fp = io.BytesIO(await a.read())
 		fp.seek(0)
 		attachments.append(discord.File(fp, filename=a.filename))
-	await logs.send(f"{message.channel.name}/{message.author.display_name} deleted: `{message.content}`", files=attachments)
+	await logs.send(f"https://discord.com/channels/1526558661810327684/{message.channel.id}\/{message.author.display_name} deleted: `{message.content}`", files=attachments)
 
 @client.event
 async def on_message(message):
