@@ -1,6 +1,7 @@
 import discord; import os; import re; import random; import json
 intents = discord.Intents.default()
 intents.message_content = True
+intents.messages = True
 intents.members = True
 client = discord.Client(intents=intents); cat = 0
 hello = ['haiii', 'hi hello nya~', 'mraow', 'hihihihiii hewoo', 'harro', 'ha-iiiiii', ':hai:', ':hai::iiiii::iiiii:', 'suppers', 'hewoooooooooooooo', 'heyo', '>w< hihi']
@@ -8,6 +9,17 @@ mraow = ['mraowwww', 'meeeoww', 'nyaaaa~', 'UwU', 'mrrrp mraow meowww', 'miumium
 @client.event
 async def on_ready():
 	print(f'hi oomfie is now up and running')
+@client.event
+async def on_message_edit(before: discord.Message, after: discord.Message):
+	logs = await client.fetch_channel(1531936024119345213)
+	attachments = [discord.File(io.BytesIO(await a.read()).seek(0), filename=a.filename) for a in before.attachments]
+	await logs.send(f"{before.channel.name}/{before.author.display_name}: `{before.content}` -> `{after.content}`", files=attachments)
+@client.event
+async def on_message_delete(message: discord.Message):
+	logs = await client.fetch_channel(1531936024119345213)
+	attachments = [discord.File(io.BytesIO(await a.read()).seek(0), filename=a.filename) for a in message.attachments]
+	await logs.send(f"{before.channel.name}/{before.author.display_name}: `{message.content}`", files=attachments)
+
 @client.event
 async def on_message(message):
 	global cat
