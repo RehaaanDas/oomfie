@@ -18,7 +18,7 @@ async def on_message_edit(before: discord.Message, after: discord.Message):
 async def on_message_delete(message: discord.Message):
 	logs = await client.fetch_channel(1531936024119345213)
 	attachments = [discord.File(io.BytesIO(await a.read()).seek(0), filename=a.filename) for a in message.attachments]
-	await logs.send(f"{message.channel.name}/{before.author.display_name}: `{message.content}`", files=attachments)
+	await logs.send(f"{message.channel.name}/{message.author.display_name}: `{message.content}`", files=attachments)
 
 @client.event
 async def on_message(message):
