@@ -16,7 +16,7 @@ async def on_message_edit(before: discord.Message, after: discord.Message):
 	for a in before.attachments:
 		fp = io.BytesIO(await a.read())
 		fp.seek(0)
-		attachments.append(discord.File(fp, filename=a.filename)
+		attachments.append(discord.File(fp, filename=a.filename))
 	await logs.send(f"{before.channel.name}/{before.author.display_name} edited: `{before.content}` -> `{after.content}`", files=attachments)
 @client.event
 async def on_message_delete(message: discord.Message):
@@ -25,7 +25,7 @@ async def on_message_delete(message: discord.Message):
 	for a in message.attachments:
 		fp = io.BytesIO(await a.read())
 		fp.seek(0)
-		attachments.append(discord.File(fp, filename=a.filename)
+		attachments.append(discord.File(fp, filename=a.filename))
 	await logs.send(f"{message.channel.name}/{message.author.display_name} deleted: `{message.content}`", files=attachments)
 
 @client.event
