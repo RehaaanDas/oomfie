@@ -11,11 +11,11 @@ async def on_ready():
 	print(f'hi oomfie is now up and running')
 @client.event
 async def on_raw_reaction_remove(payload):
-	logs = await client.fetch_channel(1531936024119345213)
+	logs = await client.fetch_channel(1532030955177381978)
 	await logs.send(f"https://discord.com/channels/1526558661810327684/{payload.channel_id}\/{(await (await client.fetch_guild(payload.guild_id)).fetch_member(payload.user_id)).display_name} removed react from https://discord.com/channels/1526558661810327684/{payload.channel_id}/{payload.message_id}: {str(payload.emoji)}")
 @client.event
 async def on_message_edit(before: discord.Message, after: discord.Message):
-	logs = await client.fetch_channel(1531936024119345213)
+	logs = await client.fetch_channel(1532030955177381978)
 	attachments = []
 	for a in before.attachments:
 		fp = io.BytesIO(await a.read())
@@ -24,7 +24,7 @@ async def on_message_edit(before: discord.Message, after: discord.Message):
 	await logs.send(f"https://discord.com/channels/1526558661810327684/{before.channel.id}\/{before.author.display_name} edited: `{before.content}` -> `{after.content}`", files=attachments)
 @client.event
 async def on_message_delete(message: discord.Message):
-	logs = await client.fetch_channel(1531936024119345213)
+	logs = await client.fetch_channel(1532030955177381978)
 	attachments = []
 	for a in message.attachments:
 		fp = io.BytesIO(await a.read())
